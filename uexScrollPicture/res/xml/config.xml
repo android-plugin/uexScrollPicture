@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<uexplugins>
+	<plugin
+        className="org.zywx.wbpalmstar.plugin.uexscrollpicture.EUExScrollPicture" uexName="uexScrollPicture" >
+        <method name="createNewScrollPicture"/>
+        <method name="startAutoScroll"/>
+        <method name="stopAutoScroll"/>
+        <method name="removeView"/>
+        <method name="onPicItemClick"
+            type="2"/>
+    </plugin>
+</uexplugins>
