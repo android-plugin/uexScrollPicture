@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,13 +18,10 @@ import org.json.JSONObject;
 import org.zywx.wbpalmstar.engine.AbsoluteLayout;
 import org.zywx.wbpalmstar.engine.DataHelper;
 import org.zywx.wbpalmstar.engine.EBrowserView;
-import org.zywx.wbpalmstar.engine.EResources;
-import org.zywx.wbpalmstar.engine.EUtil;
 import org.zywx.wbpalmstar.engine.universalex.EUExBase;
 import org.zywx.wbpalmstar.engine.universalex.EUExUtil;
 import org.zywx.wbpalmstar.plugin.uexscrollpicture.VO.ConfigInfoVO;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
