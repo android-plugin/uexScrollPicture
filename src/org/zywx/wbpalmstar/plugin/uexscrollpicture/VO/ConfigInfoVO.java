@@ -9,10 +9,10 @@ import java.util.List;
 public class ConfigInfoVO implements Serializable {
     private static final long serialVersionUID = 2652231287567742609L;
 
-    private int interval=1500;//×Ô¶¯¹ö¶¯µÄ¼ä¸ôÊ±¼ä£¬µ¥Î»ÎªºÁÃë£¬Ä¬ÈÏ3000
+    private int interval=1500;//è‡ªåŠ¨æ»šåŠ¨çš„é—´éš”æ—¶é—´ï¼Œå•ä½ä¸ºæ¯«ç§’ï¼Œé»˜è®¤3000
     private int slideBorderMode=0;
     private int animaId=0;
-    private int width=0;//ÂÖ²¥Í¼¿í¶È
+    private int width=0;//è½®æ’­å›¾å®½åº¦
     private int height=0;//
     private int[] anchor;
     private String viewId;
