@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexScrollPicture" version="3.0.1" build="0">
-        <info>图片轮播图</info>
+        uexName="uexScrollPicture" version="3.0.2" build="2">
+        <info>2.修复闪退的问题</info>
+        <build>1.图片轮播图</build>
     </plugin>
 </uexplugins>

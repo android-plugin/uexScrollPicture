@@ -43,6 +43,19 @@ public class EUExScrollPicture extends EUExBase {
 
     @Override
     protected boolean clean() {
+        if (mBrwView!=null) {
+            int viewCount = mBrwView.getChildCount();
+            for (int i = viewCount - 1; i >= 0; i--) {
+                if (!(mBrwView.getChildAt(i) instanceof ViewGroup)){
+                    continue;
+                }
+                if (((ViewGroup)mBrwView.getChildAt(i)).getChildAt(0) instanceof AutoScrollViewPager) {
+                    AutoScrollViewPager autoScrollViewPager = (AutoScrollViewPager) ((ViewGroup) mBrwView.getChildAt(i)).getChildAt(0);
+                    autoScrollViewPager.stopAutoScroll();
+                }
+            }
+            mBrwView.removeAllViews();
+        }
         return false;
     }
 
@@ -141,6 +154,9 @@ public class EUExScrollPicture extends EUExBase {
     private void addIndicatorImg(int index,int count,LinearLayout parent){
         parent.removeAllViews();
         for (int i=0;i<count;i++){
+            if (mContext==null){
+                return;
+            }
             ImageView imageView=new ImageView(mContext);
             LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(8,0,8,0);
