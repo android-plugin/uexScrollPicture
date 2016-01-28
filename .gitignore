@@ -15,7 +15,6 @@ gen/
 # Gradle files
 .gradle/
 build/
-*.iml
 /*/build/
 
 # Local configuration file (sdk path, etc)
@@ -26,3 +25,13 @@ proguard/
 
 # Log Files
 *.log
+
+# IDEA IDE
+.idea/
+*.iml
+
+#Windows
+Thumbs.db
+
+#MAC
+.DS_Store
