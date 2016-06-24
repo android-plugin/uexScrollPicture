@@ -1,13 +1,18 @@
 apply plugin: 'com.android.application'
 
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
-    compile files('libs/android-support-v4.jar')
+    compile(name: "Engine-system-debug-4.0.0", ext: 'aar')
 }
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.2"
     lintOptions {
         abortOnError false
     }
@@ -40,21 +45,4 @@ android {
         release.setRoot('build-types/release')
     }
 }
-task clearJar(type: Delete) {
-    delete 'libs/uexBluetoothBLE.jar'
-}
-
-task makeJar(type:org.gradle.api.tasks.bundling.Jar) {
-    //指定生成的jar名
-    baseName 'uexBluetoothBLE'
-    //从哪里打包class文件
-    from('build/intermediates/classes/debug/')
-    //打包到jar后的目录结构
-    into('')
-    //去掉不需要打包的目录和文件
-    exclude('test/', 'BuildConfig.class', 'R.class')
-    //去掉R$开头的文件
-    exclude{ it.name.startsWith('R$');}
-}
-
-makeJar.dependsOn(clearJar, build)
+apply from: "https://raw.githubusercontent.com/android-plugin/gradle-plugin/master/buildPlugin.gradle"
