@@ -1,8 +1,6 @@
 package org.zywx.wbpalmstar.plugin.uexscrollpicture;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.ViewGroup;
@@ -27,13 +25,8 @@ import java.util.List;
 
 public class EUExScrollPicture extends EUExBase {
 
-    private static final String BUNDLE_DATA = "data";
-    private static final int MSG_CREATE_NEW_SCROLL_PICTURE = 1;
-    private static final int MSG_START_AUTO_SCROLL = 2;
-    private static final int MSG_STOP_AUTO_SCROLL = 3;
-    private static final int MSG_REMOVE_VIEW = 4;
-
     private Gson mGson;
+    private int mCurrentId = 0;
 
 
     public EUExScrollPicture(Context context, EBrowserView eBrowserView) {
@@ -59,24 +52,16 @@ public class EUExScrollPicture extends EUExBase {
         return false;
     }
 
-
-    public void createNewScrollPicture(String[] params) {
+    public String createNewScrollPicture(String[] params) {
         if (params == null || params.length < 1) {
             errorCallback(0, 0, "error params!");
-            return;
+            return null;
         }
-        Message msg = new Message();
-        msg.obj = this;
-        msg.what = MSG_CREATE_NEW_SCROLL_PICTURE;
-        Bundle bd = new Bundle();
-        bd.putStringArray(BUNDLE_DATA, params);
-        msg.setData(bd);
-        mHandler.sendMessage(msg);
-    }
-
-    private void createNewScrollPictureMsg(String[] params) {
         String json = params[0];
         final ConfigInfoVO config = mGson.fromJson(json,new TypeToken<ConfigInfoVO>(){}.getType());
+        if (TextUtils.isEmpty(config.getViewId())){
+            config.setViewId(generateId());
+        }
         AutoScrollViewPager viewPager;
         MyViewPagerAdapter adapter;
         final List<String> urls;
@@ -112,7 +97,7 @@ public class EUExScrollPicture extends EUExBase {
         rootLayout.addView(viewPager);
         rootLayout.setTag(config.getViewId());
         final LinearLayout indicatorContainer =addIndicatorContainer(rootLayout);
-        addIndicatorImg(0,urls.size(),indicatorContainer);
+        addIndicatorImg(0, urls.size(), indicatorContainer);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -121,7 +106,7 @@ public class EUExScrollPicture extends EUExBase {
 
             @Override
             public void onPageSelected(int i) {
-                addIndicatorImg(i%urls.size(),urls.size(),indicatorContainer);
+                addIndicatorImg(i % urls.size(), urls.size(), indicatorContainer);
             }
 
             @Override
@@ -130,6 +115,12 @@ public class EUExScrollPicture extends EUExBase {
             }
         });
         mBrwView.addView(rootLayout,layoutParams);
+        return config.getViewId();
+    }
+
+    private String generateId(){
+        mCurrentId++;
+        return String.valueOf(mCurrentId);
     }
 
     private RelativeLayout getContainer(){
@@ -175,16 +166,6 @@ public class EUExScrollPicture extends EUExBase {
             errorCallback(0, 0, "error params!");
             return;
         }
-        Message msg = new Message();
-        msg.obj = this;
-        msg.what = MSG_START_AUTO_SCROLL;
-        Bundle bd = new Bundle();
-        bd.putStringArray(BUNDLE_DATA, params);
-        msg.setData(bd);
-        mHandler.sendMessage(msg);
-    }
-
-    private void startAutoScrollMsg(String[] params) {
         String json = params[0];
         String viewId=null;
         try {
@@ -205,16 +186,6 @@ public class EUExScrollPicture extends EUExBase {
     }
 
     public void stopAutoScroll(String[] params) {
-        Message msg = new Message();
-        msg.obj = this;
-        msg.what = MSG_STOP_AUTO_SCROLL;
-        Bundle bd = new Bundle();
-        bd.putStringArray(BUNDLE_DATA, params);
-        msg.setData(bd);
-        mHandler.sendMessage(msg);
-    }
-
-    private void stopAutoScrollMsg(String[] params) {
         String json = params[0];
         String viewId=null;
         try {
@@ -234,22 +205,11 @@ public class EUExScrollPicture extends EUExBase {
         }
     }
 
-
     public void removeView(String[] params) {
         if (params == null || params.length < 1) {
             errorCallback(0, 0, "error params!");
             return;
         }
-        Message msg = new Message();
-        msg.obj = this;
-        msg.what = MSG_REMOVE_VIEW;
-        Bundle bd = new Bundle();
-        bd.putStringArray(BUNDLE_DATA, params);
-        msg.setData(bd);
-        mHandler.sendMessage(msg);
-    }
-
-    private void removeViewMsg(String[] params) {
         String json = params[0];
         String viewId=null;
         try {
@@ -265,31 +225,6 @@ public class EUExScrollPicture extends EUExBase {
                     break;
                 }
             }
-        }
-    }
-
-    @Override
-    public void onHandleMessage(Message message) {
-        if(message == null){
-            return;
-        }
-        Bundle bundle=message.getData();
-        switch (message.what) {
-
-            case MSG_CREATE_NEW_SCROLL_PICTURE:
-                createNewScrollPictureMsg(bundle.getStringArray(BUNDLE_DATA));
-                break;
-            case MSG_START_AUTO_SCROLL:
-                startAutoScrollMsg(bundle.getStringArray(BUNDLE_DATA));
-                break;
-            case MSG_STOP_AUTO_SCROLL:
-                stopAutoScrollMsg(bundle.getStringArray(BUNDLE_DATA));
-                break;
-            case MSG_REMOVE_VIEW:
-                removeViewMsg(bundle.getStringArray(BUNDLE_DATA));
-                break;
-            default:
-                super.onHandleMessage(message);
         }
     }
 

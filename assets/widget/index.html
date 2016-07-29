@@ -24,7 +24,8 @@
                     var width = document.getElementById("createNewScrollPicturewidth").value;
                     var urls = document.getElementById("createNewScrollPictureurls").value;
                     var viewId = document.getElementById("createNewScrollPictureviewId").value;
-                    uexScrollPicture.createNewScrollPicture('{"interval":"'+interval+'","anchor":'+anchor+',"height":"'+height+'","width":"'+width+'","urls":'+urls+',"viewId":"'+viewId+'"}');
+                    var resultId = uexScrollPicture.createNewScrollPicture('{"interval":"'+interval+'","anchor":'+anchor+',"height":"'+height+'","width":"'+width+'","urls":'+urls+',"viewId":"'+viewId+'"}');
+                    alert("resultId:" + resultId);
                 }
                 
                 //2
