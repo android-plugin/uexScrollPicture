@@ -171,6 +171,9 @@ public class EUExScrollPicture extends EUExBase {
         try {
             JSONObject jsonObject = new JSONObject(json);
             viewId=jsonObject.optString("viewId");
+            if (TextUtils.isEmpty(viewId)){
+                viewId = jsonObject.optString("view");
+            }
         } catch (JSONException e) {
         }
         if (!TextUtils.isEmpty(viewId)){
@@ -191,6 +194,9 @@ public class EUExScrollPicture extends EUExBase {
         try {
             JSONObject jsonObject = new JSONObject(json);
             viewId=jsonObject.optString("viewId");
+            if (TextUtils.isEmpty(viewId)){
+                viewId = jsonObject.optString("view");
+            }
         } catch (JSONException e) {
         }
         if (!TextUtils.isEmpty(viewId)){
@@ -215,6 +221,9 @@ public class EUExScrollPicture extends EUExBase {
         try {
             JSONObject jsonObject = new JSONObject(json);
             viewId=jsonObject.optString("viewId");
+            if (TextUtils.isEmpty(viewId)){
+                viewId = jsonObject.optString("view");
+            }
         } catch (JSONException e) {
         }
         if (!TextUtils.isEmpty(viewId)){
